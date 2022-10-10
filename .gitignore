@@ -1,0 +1,48 @@
+.DS_Store
+.well-known
+
+# node
+node_modules
+node-jiti
+npm-debug.log
+.env
+.env.*
+!.env.example
+!.env.deploy.example
+
+# app
+.nginx
+*.nginx.conf
+
+dist*/
+.hello-docs
+
+# IDE
+.idea
+
+*.sublime-project
+*.sublime-workspace
+
+sftp-config.json
+sftp-settings.json
+
+# agentx
+agentx-conf.json
+
+async.sh
+*.pem
+yarn-error.log
+
+
+.history
+dump.rdb
+
+.vscode-upload.json
+.cache
+package-lock.json
+
+*-debug.log
+*-error.log
+
+.nyc_output
+coverage

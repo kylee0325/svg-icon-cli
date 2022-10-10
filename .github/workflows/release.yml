@@ -1,0 +1,38 @@
+name: Release
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - name: Install Dependencies
+        run: |
+          npm install -g pnpm
+          pnpm install
+      - name: Release Package
+        env:
+          GITHUB_TOKEN: ${{ secrets.AUTH_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release
+      - name: Build Docs
+        run: pnpm run docs:build
+      - name: Deploy Docs
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_dir: ./docs/.vitepress/dist
+          github_token: ${{ secrets.AUTH_TOKEN }}
+          commit_message: Update Github gh-pages

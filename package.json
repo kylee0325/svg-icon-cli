@@ -1,0 +1,104 @@
+{
+  "name": "svg-icon-cli",
+  "version": "0.0.1",
+  "description": "A command-line interface for managing svg icons. It can do many things, such as convert icons from figma/iconfont to svg files/components, generate iconfont file from figma icons, etc.",
+  "keywords": [
+    "svg",
+    "icon",
+    "cli",
+    "figma",
+    "iconfont"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kylee0325/svg-icon-cli.git"
+  },
+  "author": "kylee0325",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kylee0325/svg-icon-cli/issues"
+  },
+  "homepage": "https://kylee0325.github.io/svg-icon-cli/",
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "main": "dist/index.js",
+  "files": [
+    "bin",
+    "dist",
+    "templates"
+  ],
+  "bin": {
+    "svg-icon-cli": "bin/cli.js"
+  },
+  "scripts": {
+    "build": "tsc -d",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:serve": "vitepress serve docs",
+    "prepublishOnly": "npm run build",
+    "prepare": "husky install",
+    "test": "vitest run",
+    "coverage": "vitest run --coverage",
+    "commit": "cz"
+  },
+  "engines": {
+    "node": ">= 16.0.0"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "dependencies": {
+    "bundle-require": "^3.1.0",
+    "esbuild": "^0.15.10",
+    "figma-js": "^1.16.0",
+    "got": "^12.5.1",
+    "joycon": "^3.1.1",
+    "lodash-es": "^4.17.21",
+    "node-fetch": "^3.2.10",
+    "svgson": "^5.2.1",
+    "zx": "^7.0.8"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/commit-analyzer": "^9.0.2",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^8.0.6",
+    "@semantic-release/npm": "^9.0.1",
+    "@semantic-release/release-notes-generator": "^10.0.3",
+    "@vitest/coverage-c8": "^0.24.0",
+    "ant-design-vue": "^3.2.13",
+    "commitizen": "^4.2.5",
+    "conventional-changelog-cli": "^2.2.2",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.21.0",
+    "eslint-config-standard": "^17.0.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "semantic-release": "^19.0.5",
+    "typescript": "^4.8.2",
+    "vitepress": "^0.20.0",
+    "vitest": "^0.24.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,vue}": "eslint --fix",
+    "src/**/**/*.ts": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
