@@ -1,29 +1,12 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "strict": false,
-    "jsx": "preserve",
-    "allowJs": true,
-    "importHelpers": true,
-    "noEmit": true,
-    "noImplicitThis": true,
-    "moduleResolution": "node",
-    "noImplicitAny": false,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    "target": "ESNext",
+    "module": "ESNext",
     "esModuleInterop": true,
+    "strict": true,
     "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true,
-    "downlevelIteration": true,
-    "sourceMap": true,
-    "outDir": "./dist",
-    "declaration": true,
-    "declarationDir": "./types",
-    "lib": [
-      "dom",
-      "esnext"
-    ]
+    "moduleResolution": "Node",
+    "outDir": "./dist"
   },
   "include": [
     "src/**/*",

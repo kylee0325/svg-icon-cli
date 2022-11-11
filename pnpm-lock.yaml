@@ -8,6 +8,8 @@ specifiers:
   '@semantic-release/github': ^8.0.6
   '@semantic-release/npm': ^9.0.1
   '@semantic-release/release-notes-generator': ^10.0.3
+  '@types/lodash-es': ^4.17.6
+  '@types/node': ^18.8.4
   '@vitest/coverage-c8': ^0.24.0
   ant-design-vue: ^3.2.13
   bundle-require: ^3.1.0
@@ -25,6 +27,11 @@ specifiers:
   lodash-es: ^4.17.21
   node-fetch: ^3.2.10
   prettier: ^2.7.1
+  rollup: ^2.79.1
+  rollup-plugin-commonjs: ^10.1.0
+  rollup-plugin-dts: ^4.2.3
+  rollup-plugin-node-resolve: ^5.2.0
+  rollup-plugin-typescript: ^1.0.1
   semantic-release: ^19.0.5
   svgson: ^5.2.1
   typescript: ^4.8.2
@@ -51,6 +58,8 @@ devDependencies:
   '@semantic-release/github': registry.npmmirror.com/@semantic-release/github/8.0.6_semantic-release@19.0.5
   '@semantic-release/npm': registry.npmmirror.com/@semantic-release/npm/9.0.1_semantic-release@19.0.5
   '@semantic-release/release-notes-generator': registry.npmmirror.com/@semantic-release/release-notes-generator/10.0.3_semantic-release@19.0.5
+  '@types/lodash-es': registry.npmmirror.com/@types/lodash-es/4.17.6
+  '@types/node': registry.npmmirror.com/@types/node/18.8.4
   '@vitest/coverage-c8': registry.npmmirror.com/@vitest/coverage-c8/0.24.0
   ant-design-vue: registry.npmmirror.com/ant-design-vue/3.2.13
   commitizen: registry.npmmirror.com/commitizen/4.2.5
@@ -61,6 +70,11 @@ devDependencies:
   husky: registry.npmmirror.com/husky/8.0.1
   lint-staged: registry.npmmirror.com/lint-staged/13.0.3
   prettier: registry.npmmirror.com/prettier/2.7.1
+  rollup: registry.npmmirror.com/rollup/2.79.1
+  rollup-plugin-commonjs: registry.npmmirror.com/rollup-plugin-commonjs/10.1.0_rollup@2.79.1
+  rollup-plugin-dts: registry.npmmirror.com/rollup-plugin-dts/4.2.3_gypgyaqhine6mwjfvh7icfhviq
+  rollup-plugin-node-resolve: registry.npmmirror.com/rollup-plugin-node-resolve/5.2.0_rollup@2.79.1
+  rollup-plugin-typescript: registry.npmmirror.com/rollup-plugin-typescript/1.0.1_typescript@4.8.4
   semantic-release: registry.npmmirror.com/semantic-release/19.0.5
   typescript: registry.npmmirror.com/typescript/4.8.4
   vitepress: registry.npmmirror.com/vitepress/0.20.10
@@ -1068,12 +1082,18 @@ packages:
     version: 4.3.3
     dev: true
 
+  registry.npmmirror.com/@types/estree/1.0.0:
+    resolution: {integrity: sha512-WulqXMDUTYAXCjZnk6JtIHPigp55cVtDgDrO2gHRwhyJto21+1zbVCtOYB2L1F9w4qCQ0rOGWBnBe0FNTiEJIQ==, registry: https://registry-npm.gaoding.com/, tarball: https://registry.npmmirror.com/@types/estree/-/estree-1.0.0.tgz}
+    name: '@types/estree'
+    version: 1.0.0
+    dev: true
+
   registry.npmmirror.com/@types/fs-extra/9.0.13:
     resolution: {integrity: sha512-nEnwB++1u5lVDM2UI4c1+5R+FYaKfaAzS4OococimjVm3nQw3TuzH5UNsocrcTBbhnerblyHj4A49qXbIiZdpA==, registry: https://registry-npm.gaoding.com/, tarball: https://registry.npmmirror.com/@types/fs-extra/-/fs-extra-9.0.13.tgz}
     name: '@types/fs-extra'
     version: 9.0.13
     dependencies:
-      '@types/node': registry.npmmirror.com/@types/node/18.8.3
+      '@types/node': registry.npmmirror.com/@types/node/18.8.4
     dev: false
 
   registry.npmmirror.com/@types/http-cache-semantics/4.0.1:
@@ -1088,6 +1108,20 @@ packages:
     version: 2.0.4
     dev: true
 
+  registry.npmmirror.com/@types/lodash-es/4.17.6:
+    resolution: {integrity: sha512-R+zTeVUKDdfoRxpAryaQNRKk3105Rrgx2CFRClIgRGaqDTdjsm8h6IYA8ir584W3ePzkZfst5xIgDwYrlh9HLg==, registry: https://registry-npm.gaoding.com/, tarball: https://registry.npmmirror.com/@types/lodash-es/-/lodash-es-4.17.6.tgz}
+    name: '@types/lodash-es'
+    version: 4.17.6
+    dependencies:
+      '@types/lodash': registry.npmmirror.com/@types/lodash/4.14.186
+    dev: true
+
+  registry.npmmirror.com/@types/lodash/4.14.186:
+    resolution: {integrity: sha512-eHcVlLXP0c2FlMPm56ITode2AgLMSa6aJ05JTTbYbI+7EMkCEE5qk2E41d5g2lCVTqRe0GnnRFurmlCsDODrPw==, registry: https://registry-npm.gaoding.com/, tarball: https://registry.npmmirror.com/@types/lodash/-/lodash-4.14.186.tgz}
+    name: '@types/lodash'
+    version: 4.14.186
+    dev: true
+
   registry.npmmirror.com/@types/minimist/1.2.2:
     resolution: {integrity: sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==, registry: https://registry-npm.gaoding.com/, tarball: https://registry.npmmirror.com/@types/minimist/-/minimist-1.2.2.tgz}
     name: '@types/minimist'
@@ -1099,10 +1133,10 @@ packages:
     version: 14.18.31
     dev: true
 
-  registry.npmmirror.com/@types/node/18.8.3:
-    resolution: {integrity: sha512-0os9vz6BpGwxGe9LOhgP/ncvYN5Tx1fNcd2TM3rD/aCGBkysb+ZWpXEocG24h6ZzOi13+VB8HndAQFezsSOw1w==, registry: https://registry-npm.gaoding.com/, tarball: https://registry.npmmirror.com/@types/node/-/node-18.8.3.tgz}
+  registry.npmmirror.com/@types/node/18.8.4:
+    resolution: {integrity: sha512-WdlVphvfR/GJCLEMbNA8lJ0lhFNBj4SW3O+O5/cEGw9oYrv0al9zTwuQsq+myDUXgNx2jgBynoVgZ2MMJ6pbow==, registry: https://registry-npm.gaoding.com/, tarball: https://registry.npmmirror.com/@types/node/-/node-18.8.4.tgz}
     name: '@types/node'
-    version: 18.8.3
+    version: 18.8.4
 
   registry.npmmirror.com/@types/normalize-package-data/2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==, registry: https://registry-npm.gaoding.com/, tarball: https://registry.npmmirror.com/@types/normalize-package-data/-/normalize-package-data-2.4.1.tgz}
@@ -1121,6 +1155,14 @@ packages:
     name: '@types/ps-tree'
     version: 1.1.2
     dev: false
+
+  registry.npmmirror.com/@types/resolve/0.0.8:
+    resolution: {integrity: sha512-auApPaJf3NPfe18hSoJkp8EbZzer2ISk7o8mCC3M9he/a04+gbMF97NkpD2S8riMGvm4BMRI59/SZQSaLTKpsQ==, registry: https://registry-npm.gaoding.com/, tarball: https://registry.npmmirror.com/@types/resolve/-/resolve-0.0.8.tgz}
+    name: '@types/resolve'
+    version: 0.0.8
+    dependencies:
+      '@types/node': registry.npmmirror.com/@types/node/18.8.4
+    dev: true
 
   registry.npmmirror.com/@types/retry/0.12.0:
     resolution: {integrity: sha512-wWKOClTTiizcZhXnPY4wikVAwmdYHp8q6DmC+EJUzAMsycb7HB32Kh9RN4+0gExjmPmZSAQjgURXIGATPegAvA==, registry: https://registry-npm.gaoding.com/, tarball: https://registry.npmmirror.com/@types/retry/-/retry-0.12.0.tgz}
@@ -1606,6 +1648,13 @@ packages:
     dependencies:
       base64-js: registry.npmmirror.com/base64-js/1.5.1
       ieee754: registry.npmmirror.com/ieee754/1.2.1
+    dev: true
+
+  registry.npmmirror.com/builtin-modules/3.3.0:
+    resolution: {integrity: sha512-zhaCDicdLuWN5UbN5IMnFqNMhNfo919sH85y2/ea+5Yg9TsTkeZxpL+JLbp6cgYFS4sRLp3YV4S6yDuqVWHYOw==, registry: https://registry-npm.gaoding.com/, tarball: https://registry.npmmirror.com/builtin-modules/-/builtin-modules-3.3.0.tgz}
+    name: builtin-modules
+    version: 3.3.0
+    engines: {node: '>=6'}
     dev: true
 
   registry.npmmirror.com/bundle-require/3.1.0_esbuild@0.15.10:
@@ -3133,6 +3182,12 @@ packages:
     engines: {node: '>=4.0'}
     dev: true
 
+  registry.npmmirror.com/estree-walker/0.6.1:
+    resolution: {integrity: sha512-SqmZANLWS0mnatqbSfRP5g8OXZC12Fgg1IwNtLsyHDzJizORW4khDfjPqJZsemPWBB2uqykUah5YpQ6epsqC/w==, registry: https://registry-npm.gaoding.com/, tarball: https://registry.npmmirror.com/estree-walker/-/estree-walker-0.6.1.tgz}
+    name: estree-walker
+    version: 0.6.1
+    dev: true
+
   registry.npmmirror.com/estree-walker/2.0.2:
     resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==, registry: https://registry-npm.gaoding.com/, tarball: https://registry.npmmirror.com/estree-walker/-/estree-walker-2.0.2.tgz}
     name: estree-walker
@@ -4045,6 +4100,12 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  registry.npmmirror.com/is-module/1.0.0:
+    resolution: {integrity: sha512-51ypPSPCoTEIN9dy5Oy+h4pShgJmPCygKfyRCISBI+JoWT/2oJvK8QPxmwv7b/p239jXrm9M1mlQbyKJ5A152g==, registry: https://registry-npm.gaoding.com/, tarball: https://registry.npmmirror.com/is-module/-/is-module-1.0.0.tgz}
+    name: is-module
+    version: 1.0.0
+    dev: true
+
   registry.npmmirror.com/is-number/7.0.0:
     resolution: {integrity: sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==, registry: https://registry-npm.gaoding.com/, tarball: https://registry.npmmirror.com/is-number/-/is-number-7.0.0.tgz}
     name: is-number
@@ -4100,6 +4161,14 @@ packages:
     name: is-plain-object
     version: 5.0.0
     engines: {node: '>=0.10.0'}
+    dev: true
+
+  registry.npmmirror.com/is-reference/1.2.1:
+    resolution: {integrity: sha512-U82MsXXiFIrjCK4otLT+o2NA2Cd2g5MLoOVXUZjIOhLurrRxpEXzI8O0KZHr3IjLvlAH1kTPYSuqer5T9ZVBKQ==, registry: https://registry-npm.gaoding.com/, tarball: https://registry.npmmirror.com/is-reference/-/is-reference-1.2.1.tgz}
+    name: is-reference
+    version: 1.2.1
+    dependencies:
+      '@types/estree': registry.npmmirror.com/@types/estree/1.0.0
     dev: true
 
   registry.npmmirror.com/is-stream/2.0.1:
@@ -4577,6 +4646,15 @@ packages:
     resolution: {integrity: sha512-RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ==, registry: https://registry-npm.gaoding.com/, tarball: https://registry.npmmirror.com/magic-string/-/magic-string-0.25.9.tgz}
     name: magic-string
     version: 0.25.9
+    dependencies:
+      sourcemap-codec: registry.npmmirror.com/sourcemap-codec/1.4.8
+    dev: true
+
+  registry.npmmirror.com/magic-string/0.26.7:
+    resolution: {integrity: sha512-hX9XH3ziStPoPhJxLq1syWuZMxbDvGNbVchfrdCtanC7D13888bMFow61x8axrx+GfHLtVeAx2kxL7tTGRl+Ow==, registry: https://registry-npm.gaoding.com/, tarball: https://registry.npmmirror.com/magic-string/-/magic-string-0.26.7.tgz}
+    name: magic-string
+    version: 0.26.7
+    engines: {node: '>=12'}
     dependencies:
       sourcemap-codec: registry.npmmirror.com/sourcemap-codec/1.4.8
     dev: true
@@ -5687,6 +5765,80 @@ packages:
       glob: registry.npmmirror.com/glob/7.2.3
     dev: true
 
+  registry.npmmirror.com/rollup-plugin-commonjs/10.1.0_rollup@2.79.1:
+    resolution: {integrity: sha512-jlXbjZSQg8EIeAAvepNwhJj++qJWNJw1Cl0YnOqKtP5Djx+fFGkp3WRh+W0ASCaFG5w1jhmzDxgu3SJuVxPF4Q==, registry: https://registry-npm.gaoding.com/, tarball: https://registry.npmmirror.com/rollup-plugin-commonjs/-/rollup-plugin-commonjs-10.1.0.tgz}
+    id: registry.npmmirror.com/rollup-plugin-commonjs/10.1.0
+    name: rollup-plugin-commonjs
+    version: 10.1.0
+    deprecated: This package has been deprecated and is no longer maintained. Please use @rollup/plugin-commonjs.
+    peerDependencies:
+      rollup: '>=1.12.0'
+    dependencies:
+      estree-walker: registry.npmmirror.com/estree-walker/0.6.1
+      is-reference: registry.npmmirror.com/is-reference/1.2.1
+      magic-string: registry.npmmirror.com/magic-string/0.25.9
+      resolve: registry.npmmirror.com/resolve/1.22.1
+      rollup: registry.npmmirror.com/rollup/2.79.1
+      rollup-pluginutils: registry.npmmirror.com/rollup-pluginutils/2.8.2
+    dev: true
+
+  registry.npmmirror.com/rollup-plugin-dts/4.2.3_gypgyaqhine6mwjfvh7icfhviq:
+    resolution: {integrity: sha512-jlcpItqM2efqfIiKzDB/IKOS9E9fDvbkJSGw5GtK/PqPGS9eC3R3JKyw2VvpTktZA+TNgJRMu1NTv244aTUzzQ==, registry: https://registry-npm.gaoding.com/, tarball: https://registry.npmmirror.com/rollup-plugin-dts/-/rollup-plugin-dts-4.2.3.tgz}
+    id: registry.npmmirror.com/rollup-plugin-dts/4.2.3
+    name: rollup-plugin-dts
+    version: 4.2.3
+    engines: {node: '>=v12.22.12'}
+    peerDependencies:
+      rollup: ^2.55
+      typescript: ^4.1
+    dependencies:
+      magic-string: registry.npmmirror.com/magic-string/0.26.7
+      rollup: registry.npmmirror.com/rollup/2.79.1
+      typescript: registry.npmmirror.com/typescript/4.8.4
+    optionalDependencies:
+      '@babel/code-frame': registry.npmmirror.com/@babel/code-frame/7.18.6
+    dev: true
+
+  registry.npmmirror.com/rollup-plugin-node-resolve/5.2.0_rollup@2.79.1:
+    resolution: {integrity: sha512-jUlyaDXts7TW2CqQ4GaO5VJ4PwwaV8VUGA7+km3n6k6xtOEacf61u0VXwN80phY/evMcaS+9eIeJ9MOyDxt5Zw==, registry: https://registry-npm.gaoding.com/, tarball: https://registry.npmmirror.com/rollup-plugin-node-resolve/-/rollup-plugin-node-resolve-5.2.0.tgz}
+    id: registry.npmmirror.com/rollup-plugin-node-resolve/5.2.0
+    name: rollup-plugin-node-resolve
+    version: 5.2.0
+    deprecated: This package has been deprecated and is no longer maintained. Please use @rollup/plugin-node-resolve.
+    peerDependencies:
+      rollup: '>=1.11.0'
+    dependencies:
+      '@types/resolve': registry.npmmirror.com/@types/resolve/0.0.8
+      builtin-modules: registry.npmmirror.com/builtin-modules/3.3.0
+      is-module: registry.npmmirror.com/is-module/1.0.0
+      resolve: registry.npmmirror.com/resolve/1.22.1
+      rollup: registry.npmmirror.com/rollup/2.79.1
+      rollup-pluginutils: registry.npmmirror.com/rollup-pluginutils/2.8.2
+    dev: true
+
+  registry.npmmirror.com/rollup-plugin-typescript/1.0.1_typescript@4.8.4:
+    resolution: {integrity: sha512-rwJDNn9jv/NsKZuyBb/h0jsclP4CJ58qbvZt2Q9zDIGILF2LtdtvCqMOL+Gq9IVq5MTrTlHZNrn8h7VjQgd8tw==, registry: https://registry-npm.gaoding.com/, tarball: https://registry.npmmirror.com/rollup-plugin-typescript/-/rollup-plugin-typescript-1.0.1.tgz}
+    id: registry.npmmirror.com/rollup-plugin-typescript/1.0.1
+    name: rollup-plugin-typescript
+    version: 1.0.1
+    deprecated: This package has been deprecated and is no longer maintained. Please use @rollup/plugin-typescript.
+    peerDependencies:
+      tslib: '*'
+      typescript: '>=2.1.0'
+    dependencies:
+      resolve: registry.npmmirror.com/resolve/1.22.1
+      rollup-pluginutils: registry.npmmirror.com/rollup-pluginutils/2.8.2
+      typescript: registry.npmmirror.com/typescript/4.8.4
+    dev: true
+
+  registry.npmmirror.com/rollup-pluginutils/2.8.2:
+    resolution: {integrity: sha512-EEp9NhnUkwY8aif6bxgovPHMoMoNr2FulJziTndpt5H9RdwC47GSGuII9XxpSdzVGM0GWrNPHV6ie1LTNJPaLQ==, registry: https://registry-npm.gaoding.com/, tarball: https://registry.npmmirror.com/rollup-pluginutils/-/rollup-pluginutils-2.8.2.tgz}
+    name: rollup-pluginutils
+    version: 2.8.2
+    dependencies:
+      estree-walker: registry.npmmirror.com/estree-walker/0.6.1
+    dev: true
+
   registry.npmmirror.com/rollup/2.77.3:
     resolution: {integrity: sha512-/qxNTG7FbmefJWoeeYJFbHehJ2HNWnjkAFRKzWN/45eNBBF/r8lo992CwcJXEzyVxs5FmfId+vTSTQDb+bxA+g==, registry: https://registry-npm.gaoding.com/, tarball: https://registry.npmmirror.com/rollup/-/rollup-2.77.3.tgz}
     name: rollup
@@ -5701,6 +5853,16 @@ packages:
     resolution: {integrity: sha512-VeeCgtGi4P+o9hIg+xz4qQpRl6R401LWEXBmxYKOV4zlF82lyhgh2hTZnheFUbANE8l2A41F458iwj2vEYaXJg==, registry: https://registry-npm.gaoding.com/, tarball: https://registry.npmmirror.com/rollup/-/rollup-2.78.1.tgz}
     name: rollup
     version: 2.78.1
+    engines: {node: '>=10.0.0'}
+    hasBin: true
+    optionalDependencies:
+      fsevents: registry.npmmirror.com/fsevents/2.3.2
+    dev: true
+
+  registry.npmmirror.com/rollup/2.79.1:
+    resolution: {integrity: sha512-uKxbd0IhMZOhjAiD5oAFp7BqvkA4Dv47qpOCtaNvng4HBwdbWtdOh8f5nZNuk2rp51PMGk3bzfWu5oayNEuYnw==, registry: https://registry-npm.gaoding.com/, tarball: https://registry.npmmirror.com/rollup/-/rollup-2.79.1.tgz}
+    name: rollup
+    version: 2.79.1
     engines: {node: '>=10.0.0'}
     hasBin: true
     optionalDependencies:
@@ -6653,7 +6815,7 @@ packages:
     dependencies:
       '@types/chai': registry.npmmirror.com/@types/chai/4.3.3
       '@types/chai-subset': registry.npmmirror.com/@types/chai-subset/1.3.3
-      '@types/node': registry.npmmirror.com/@types/node/18.8.3
+      '@types/node': registry.npmmirror.com/@types/node/18.8.4
       chai: registry.npmmirror.com/chai/4.3.6
       debug: registry.npmmirror.com/debug/4.3.4
       local-pkg: registry.npmmirror.com/local-pkg/0.4.2
@@ -6907,7 +7069,7 @@ packages:
     dependencies:
       '@types/fs-extra': registry.npmmirror.com/@types/fs-extra/9.0.13
       '@types/minimist': registry.npmmirror.com/@types/minimist/1.2.2
-      '@types/node': registry.npmmirror.com/@types/node/18.8.3
+      '@types/node': registry.npmmirror.com/@types/node/18.8.4
       '@types/ps-tree': registry.npmmirror.com/@types/ps-tree/1.1.2
       '@types/which': registry.npmmirror.com/@types/which/2.0.1
       chalk: registry.npmmirror.com/chalk/5.1.0

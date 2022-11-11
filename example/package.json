@@ -1,0 +1,18 @@
+{
+  "name": "svg-icon-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "init": "svg-icon-cli init",
+    "build": "svg-icon-cli build --debug",
+    "template": "svg-icon-cli template",
+    "prettier": "prettier --write 'src/components/icons/**/*'"
+  },
+  "devDependencies": {
+    "svg-icon-cli": "file:../",
+    "prettier": "^2.7.1"
+  },
+  "author": "",
+  "license": "MIT"
+}
