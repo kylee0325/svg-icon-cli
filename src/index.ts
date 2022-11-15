@@ -1,8 +1,8 @@
 import * as input from './input/index.js';
 import * as middleware from './middleware/index.js';
 import * as output from './output/index.js';
-
-import { IconConfig, NormalizedIconConfig, InputPlugin, OutputPlugin } from './types.js';
+import { IconConfig, NormalizedIconConfig, InputPlugin, OutputType, OutputPlugin } from './types.js';
+export * from './types.js';
 
 function formatOptions<T>(options: T | T[]): T[] {
   if (!Array.isArray(options)) {
@@ -23,7 +23,7 @@ export function defineIconConfig(options: IconConfig | IconConfig[]): Normalized
       {
         ...option,
         input: formatOptions<InputPlugin>(option.input),
-        output: formatOptions<OutputPlugin>(option.output),
+        output: formatOptions<OutputType | OutputPlugin>(option.output),
       },
     );
   });

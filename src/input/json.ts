@@ -1,9 +1,13 @@
 import { fs, path } from 'zx';
-import { JsonInputOptions, SourceIcon, InputSource, InputPluginImpl } from '../types.js';
+import { InputOptions, SourceIcon, InputTypes, InputPluginImpl } from '../types.js';
 import { logger, getPath, addPrefix, writeSourceData } from '../utils/index.js';
 
 const { readFile } = fs;
 const { parse } = path;
+
+export interface JsonInputOptions extends InputOptions {
+  file: string;
+}
 
 async function getIcons(options: JsonInputOptions): Promise<SourceIcon[]> {
   logger.info('json input options:');
@@ -39,7 +43,7 @@ async function getIcons(options: JsonInputOptions): Promise<SourceIcon[]> {
     return {
       ...icon,
       name,
-      source: InputSource.JSON,
+      source: InputTypes.JSON,
     };
   });
 
@@ -55,7 +59,7 @@ async function getIcons(options: JsonInputOptions): Promise<SourceIcon[]> {
 
 export const json: InputPluginImpl<JsonInputOptions> = (options: JsonInputOptions) => {
   return {
-    name: InputSource.JSON,
+    name: InputTypes.JSON,
     run: async () => await getIcons(options),
   };
 };

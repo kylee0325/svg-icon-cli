@@ -1,4 +1,4 @@
-import { SourceIcon, OutputIcon, Middleware, IconType } from '../types.js';
+import { SourceIcon, OutputIcon, Middleware, IconTypes, IconType, MiddlewareTypes } from '../types.js';
 import { logger } from '../utils/index.js';
 
 function sortIcons(icons: SourceIcon[]): SourceIcon[] {
@@ -6,7 +6,7 @@ function sortIcons(icons: SourceIcon[]): SourceIcon[] {
 }
 
 const sort: Middleware = {
-  name: 'sort',
+  name: MiddlewareTypes.SORT,
   run: sortIcons,
 };
 
@@ -27,7 +27,7 @@ function hasRepeatIcon(icons: SourceIcon[]) {
 }
 
 const repeat: Middleware = {
-  name: 'repeat',
+  name: MiddlewareTypes.REPEAT,
   run: hasRepeatIcon,
 };
 
@@ -37,7 +37,8 @@ function formatIconName(icons: SourceIcon[]): SourceIcon[] {
       .replace(/([A-Z])/g, '-$1')
       .toLowerCase()
       .replace(/_/g, '-')
-      .replace(/--/g, '-');
+      .replace(/--/g, '-')
+      .replace(/^-/g, '');
 
     return {
       ...icon,
@@ -47,7 +48,7 @@ function formatIconName(icons: SourceIcon[]): SourceIcon[] {
 }
 
 const formatName: Middleware = {
-  name: 'formatName',
+  name: MiddlewareTypes.FORMAT_NAME,
   run: formatIconName,
 };
 
@@ -66,12 +67,12 @@ export function isType(iconName: string, type: IconType) {
  * @returns {string}
  */
 export function getIconType(iconName: string): IconType {
-  if (isType(iconName, IconType.STATIC)) {
-    return IconType.STATIC;
-  } else if (isType(iconName, IconType.MULTIPLE)) {
-    return IconType.MULTIPLE;
+  if (isType(iconName, IconTypes.STATIC)) {
+    return IconTypes.STATIC;
+  } else if (isType(iconName, IconTypes.MULTIPLE)) {
+    return IconTypes.MULTIPLE;
   }
-  return IconType.CONFIGURABLE;
+  return IconTypes.CONFIGURABLE;
 }
 
 function formatIconType(icons: SourceIcon[]): OutputIcon[] {
@@ -84,7 +85,7 @@ function formatIconType(icons: SourceIcon[]): OutputIcon[] {
 }
 
 const formatType: Middleware = {
-  name: 'formatType',
+  name: MiddlewareTypes.FORMAT_TYPE,
   run: formatIconType,
 };
 

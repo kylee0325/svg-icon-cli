@@ -1,45 +1,106 @@
-import { NormalizedIconConfig, SourceIcon } from './types.js';
+import {
+  NormalizedIconConfig,
+  SourceIcon,
+  InputPlugin,
+  OutputIcon,
+  OutputType,
+  OutputPlugin,
+  Middleware,
+  MiddlewareType,
+} from './types.js';
 import { logger, writeSourceData } from './utils/index.js';
 import { sort, repeat, formatName, formatType } from './middleware/index.js';
+import { json } from './output/index.js';
+
+/**
+ * input icons
+ * @param {*} inputs
+ */
+const inputIcons = async (inputs: InputPlugin[]): Promise<SourceIcon[]> => {
+  let icons: SourceIcon[] = [];
+  for await (const input of inputs) {
+    const arr = await input.run();
+    icons = icons.concat(arr);
+  }
+  return icons;
+};
+
+const defaultMiddlewares = [sort, repeat, formatName, formatType];
+
+/**
+ * format icons
+ * @param {*} icons
+ * @param {*} middleware
+ */
+const formatIcons = async (
+  icons: SourceIcon[],
+  middleware: Array<Middleware | MiddlewareType>,
+): Promise<OutputIcon[]> => {
+  let arr = null;
+  if (middleware && Array.isArray(middleware) && middleware.length > 0) {
+    for await (const mw of middleware) {
+      if (typeof mw === 'string') {
+        const mwt = defaultMiddlewares.find((item) => item.name === mw);
+        if (mwt) {
+          arr = await mwt.run(icons);
+        }
+      } else {
+        arr = await mw.run(icons);
+      }
+    }
+  }
+  return arr || icons;
+};
 
 /**
  * output icons
- * @param {*} outputs
  * @param {*} icons
+ * @param {*} outputs
  */
-const outputIcons = async () => {};
+const outputIcons = async (icons: OutputIcon[], outputs: Array<OutputType | OutputPlugin>): Promise<void> => {
+  if (!icons || icons.length === 0) {
+    logger.error('output icons cannot be empty!');
+  }
+
+  if (outputs && Array.isArray(outputs) && outputs.length > 0) {
+    const defaultOutputs: Record<string, OutputPlugin> = {
+      json: json(),
+    };
+    for await (const output of outputs) {
+      if (typeof output === 'string') {
+        const outputT = defaultOutputs[output];
+        if (outputT) {
+          await outputT.run(icons);
+        }
+      } else {
+        await output.run(icons);
+      }
+    }
+  }
+};
 
 /**
  * build icons
  * @param {*} config
  */
 const buildIcons = async (config: NormalizedIconConfig) => {
-  const defaultMiddleware = [sort, repeat, formatName, formatType];
-  let { input: inputs, middleware = defaultMiddleware, output: outputs } = config;
+  let { input: inputs, middleware = defaultMiddlewares, output: outputs } = config;
   if (!inputs || inputs.length === 0) {
     logger.errorExit('input cannot be empty!');
   }
-
-  let icons: SourceIcon[] = [];
-  for await (const input of inputs) {
-    const arr = await input.run();
-    icons = icons.concat(arr);
+  if (!outputs || outputs.length === 0) {
+    logger.errorExit('output cannot be empty!');
   }
+
+  let icons: SourceIcon[] = await inputIcons(inputs);
+
   writeSourceData(icons, 'source-icons');
 
-  if (middleware && Array.isArray(middleware) && middleware.length > 0) {
-    for await (const mw of middleware) {
-      if (typeof mw === 'string') {
-        const mwt = defaultMiddleware.find((item) => item.name === mw);
-        if (mwt) {
-          icons = await mwt.run(icons);
-        }
-      } else {
-        icons = await mw.run(icons);
-      }
-    }
-  }
+  icons = await formatIcons(icons, middleware);
+
   writeSourceData(icons, 'output-icons');
+
+  await outputIcons(icons, outputs);
 };
 
-export { buildIcons, outputIcons };
+export { buildIcons, inputIcons, formatIcons, outputIcons };

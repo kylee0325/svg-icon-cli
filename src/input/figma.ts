@@ -1,7 +1,13 @@
 import Figma, { ClientInterface, FileImageResponse, FileNodesResponse, FileResponse } from 'figma-js';
 import got from 'got';
-import { InputPluginImpl, FigmaInputOptions, SourceIcon, InputSource } from '../types.js';
+import { InputPluginImpl, InputOptions, SourceIcon, InputTypes } from '../types.js';
 import { logger, addPrefix, writeSourceData, getQueryParams } from '../utils/index.js';
+
+export interface FigmaInputOptions extends InputOptions {
+  url: string;
+  token: string;
+  modules?: string[];
+}
 
 interface Node extends Partial<SourceIcon> {
   id: string;
@@ -254,7 +260,7 @@ async function getIcons(options: FigmaInputOptions): Promise<SourceIcon[]> {
                 icon.name = addPrefix(icon.name, prefix);
               }
               icon.content = body;
-              icon.source = InputSource.FIGMA;
+              icon.source = InputTypes.FIGMA;
               // @ts-ignore
               delete icon.id;
               delete icon.key;
@@ -277,7 +283,7 @@ async function getIcons(options: FigmaInputOptions): Promise<SourceIcon[]> {
 
 export const figma: InputPluginImpl<FigmaInputOptions> = (options: FigmaInputOptions) => {
   return {
-    name: InputSource.FIGMA,
+    name: InputTypes.FIGMA,
     run: async () => await getIcons(options),
   };
 };

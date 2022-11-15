@@ -11,9 +11,9 @@ export function getSvgContent(str: string): string {
 
 /**
  * 树形数组的遍历格式化(有返回值)
- * @param {*} tree
- * @param {*} func 每一项执行的格式化函数，需要返回
- * @returns tree
+ * @param {T} tree
+ * @param {Function} func 每一项执行的格式化函数，需要返回
+ * @returns {T} tree
  */
 export function formatTree<T>(tree: T[], func: (item: T) => T): T[] {
   if (!tree || !Array.isArray(tree)) {
@@ -38,12 +38,14 @@ export function formatTree<T>(tree: T[], func: (item: T) => T): T[] {
 
 /**
  * 给图标增加前缀
- * @param {*} name
- * @param {*} prefix
+ * @param {string} name
+ * @param {string} prefix
+ * @returns {string}
  */
 export function addPrefix(name: string, prefix: string): string {
   return `${prefix}${prefix && prefix.endsWith('-') ? '' : '-'}${name}`;
 }
+
 /**
  * 获取链接上的搜索参数
  * @param {string} url
@@ -57,4 +59,14 @@ export function getQueryParams(url: string, key: string): string {
     params[key] = decodeURIComponent(val);
   });
   return key ? params[key] : params;
+}
+
+/**
+ * 合并参数
+ * @param {T} defaultOptions
+ * @param {T} options
+ * @returns {T}
+ */
+export function mergeOptions<T>(defaultOptions: T, options?: T): T {
+  return Object.assign({}, defaultOptions, options);
 }

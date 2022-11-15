@@ -1,7 +1,11 @@
 import fetch from 'node-fetch';
-import { IconfontInputOptions, SourceIcon, InputSource, InputPluginImpl } from '../types.js';
+import { InputOptions, SourceIcon, InputTypes, InputPluginImpl } from '../types.js';
 import { logger, addPrefix, getSvgContent, formatTree, writeSourceData } from '../utils/index.js';
 import { parse, stringify } from 'svgson';
+
+export interface IconfontInputOptions extends InputOptions {
+  url: string;
+}
 
 async function getIcons(options: IconfontInputOptions): Promise<SourceIcon[]> {
   logger.info('iconfont input options:');
@@ -51,7 +55,7 @@ async function getIcons(options: IconfontInputOptions): Promise<SourceIcon[]> {
     return {
       name,
       content: stringify(node),
-      source: InputSource.ICONFONT,
+      source: InputTypes.ICONFONT,
     };
   });
 
@@ -59,7 +63,7 @@ async function getIcons(options: IconfontInputOptions): Promise<SourceIcon[]> {
     icons = icons.filter(filter);
   }
 
-  writeSourceData(icons, "iconfont-icons");
+  writeSourceData(icons, 'iconfont-icons');
   logger.info(`Find iconfont icons (total: ${icons.length}): ${icons.map((icon) => icon.name)}`);
 
   return icons;
@@ -67,7 +71,7 @@ async function getIcons(options: IconfontInputOptions): Promise<SourceIcon[]> {
 
 export const iconfont: InputPluginImpl<IconfontInputOptions> = (options: IconfontInputOptions) => {
   return {
-    name: InputSource.ICONFONT,
+    name: InputTypes.ICONFONT,
     run: async () => await getIcons(options),
   };
 };

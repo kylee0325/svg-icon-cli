@@ -37,5 +37,5 @@ export default defineIconConfig({
     }),
   ],
   middleware: ['formatName', 'repeat', 'sort', 'formatType'],
-  output: [],
+  output: ['json'],
 });

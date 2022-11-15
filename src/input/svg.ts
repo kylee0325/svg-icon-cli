@@ -1,9 +1,13 @@
 import { fs, path } from 'zx';
-import { SvgInputOptions, SourceIcon, InputSource, InputPluginImpl } from '../types.js';
+import { InputOptions, SourceIcon, InputTypes, InputPluginImpl } from '../types.js';
 import { logger, getPath, getFiles, addPrefix, writeSourceData } from '../utils/index.js';
 
 const { readFile } = fs;
 const { parse } = path;
+
+export interface SvgInputOptions extends InputOptions {
+  dir: string;
+}
 
 async function getIcons(options: SvgInputOptions): Promise<SourceIcon[]> {
   logger.info('svg input options:');
@@ -34,7 +38,7 @@ async function getIcons(options: SvgInputOptions): Promise<SourceIcon[]> {
         fileMap[name] = {
           name,
           content,
-          source: InputSource.SVG,
+          source: InputTypes.SVG,
         };
       } catch (error) {
         logger.error(`cannot read svg file: ${filePath}`);
@@ -57,7 +61,7 @@ async function getIcons(options: SvgInputOptions): Promise<SourceIcon[]> {
 
 export const svg: InputPluginImpl<SvgInputOptions> = (options: SvgInputOptions) => {
   return {
-    name: InputSource.SVG,
+    name: InputTypes.SVG,
     run: async () => await getIcons(options),
   };
 };

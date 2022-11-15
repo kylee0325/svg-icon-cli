@@ -1,14 +1,16 @@
-export enum InputSource {
-  FIGMA = 'figma',
-  ICONFONT = 'iconfont',
-  SVG = 'svg',
-  JSON = 'json',
-}
+export const InputTypes = {
+  FIGMA: 'figma',
+  ICONFONT: 'iconfont',
+  SVG: 'svg',
+  JSON: 'json',
+} as const;
+
+export type InputType = typeof InputTypes[keyof typeof InputTypes];
 
 export interface SourceIcon {
   name: string;
   content?: string;
-  source?: InputSource;
+  source?: InputType;
 }
 
 export interface InputOptions {
@@ -16,29 +18,13 @@ export interface InputOptions {
   filter?: (icon: SourceIcon, index: number, array: Array<SourceIcon>) => boolean;
 }
 
-export interface IconfontInputOptions extends InputOptions {
-  url: string;
-}
+export const IconTypes = {
+  CONFIGURABLE: 'configurable',
+  STATIC: 'static',
+  MULTIPLE: 'multiple',
+} as const;
 
-export interface FigmaInputOptions extends InputOptions {
-  url: string;
-  token: string;
-  modules?: string[];
-}
-
-export interface SvgInputOptions extends InputOptions {
-  dir: string;
-}
-
-export interface JsonInputOptions extends InputOptions {
-  file: string;
-}
-
-export enum IconType {
-  CONFIGURABLE = 'configurable',
-  STATIC = 'static',
-  MULTIPLE = 'multiple',
-}
+export type IconType = typeof IconTypes[keyof typeof IconTypes];
 
 export interface OutputIcon extends SourceIcon {
   type?: IconType;
@@ -49,8 +35,30 @@ export interface Middleware {
   run: (icons: SourceIcon[]) => OutputIcon[];
 }
 
+export const MiddlewareTypes = {
+  REPEAT: 'repeat',
+  SORT: 'sort',
+  FORMAT_TYPE: 'formatType',
+  FORMAT_NAME: 'formatName',
+} as const;
+
+export type MiddlewareType = typeof MiddlewareTypes[keyof typeof MiddlewareTypes];
+
+export const OutputTypes = {
+  SVG: 'svg',
+  DIFF: 'diff',
+  JSON: 'json',
+  SYMBOL: 'symbol',
+  COMPONENT: 'component',
+  COMPONENT_IMG: 'component_img',
+  COMPONENT_BG: 'component_bg',
+  COMPONENT_MIN: 'component_min',
+} as const;
+
+export type OutputType = typeof OutputTypes[keyof typeof OutputTypes];
+
 export interface OutputOptions {
-  name: string;
+  dir?: string;
 }
 
 export interface InputPlugin {
@@ -62,21 +70,19 @@ export type InputPluginImpl<O extends object = object> = (options: O) => InputPl
 
 export interface OutputPlugin {
   name: string;
-  run: (options: OutputOptions) => Promise<void>;
+  run: (icons: OutputIcon[], options?: OutputOptions) => Promise<void>;
 }
 
-export type OutputPluginImpl<O extends object = object> = (options: O) => OutputPlugin;
-
-export type MiddlewareType = 'repeat' | 'sort' | 'formatType' | 'formatName';
+export type OutputPluginImpl<O extends object = object> = (options?: O) => OutputPlugin;
 
 export interface IconConfig {
   input: InputPlugin | InputPlugin[];
   middleware?: Array<Middleware | MiddlewareType>;
-  output: OutputPlugin | OutputPlugin[];
+  output: OutputType | OutputPlugin | Array<OutputType | OutputPlugin>;
 }
 
 export interface NormalizedIconConfig {
   input: InputPlugin[];
   middleware?: Array<Middleware | MiddlewareType>;
-  output: OutputPlugin[];
+  output: Array<OutputType | OutputPlugin>;
 }

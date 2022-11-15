@@ -25,8 +25,9 @@
   "module": "dist/index.js",
   "exports": {
     ".": "./dist/index.js",
-    "./input": "./dist/input.js",
-    "./output": "./dist/output.js"
+    "./input": "./dist/input/index.js",
+    "./middleware": "./dist/middleware/index.js",
+    "./output": "./dist/output/index.js"
   },
   "files": [
     "bin",
