@@ -1,15 +1,15 @@
 import { fs, path } from 'zx';
 import { OutputOptions, OutputIcon, OutputTypes, OutputPluginImpl } from '../types.js';
-import { logger, mergeOptions, getPath, addPrefix, writeSourceData } from '../utils/index.js';
+import { logger, mergeOptions, getPath } from '../utils/index.js';
 
-const { readFile } = fs;
-const { parse } = path;
+const { ensureDir, writeFile } = fs;
+const { join, extname, parse } = path;
 
 export interface JsonOutputOptions extends OutputOptions {
   filename?: string;
 }
 
-export const defaultJsonOutputOption = {
+export const defaultJsonOutputOptions: JsonOutputOptions = {
   dir: 'src',
   filename: 'icons.json',
 };
@@ -17,8 +17,26 @@ export const defaultJsonOutputOption = {
 async function outputIcons(icons: OutputIcon[], options?: JsonOutputOptions): Promise<void> {
   logger.info('json output options:');
   console.log(options);
-  console.log(icons.length);
-  const { dir, filename } = mergeOptions<JsonOutputOptions>(defaultJsonOutputOption, options);
+  const { dir, filename } = mergeOptions<JsonOutputOptions>(defaultJsonOutputOptions, options);
+
+  if (!dir || !filename) {
+    return;
+  }
+  const jsonPathInfo = parse(filename);
+  const outputFileName = `${jsonPathInfo.name}.json`;
+  const outputDir = getPath(dir);
+  const outputFilePath = join(outputDir, outputFileName);
+  const isJsonType = extname(filename) === '.json';
+  if (!isJsonType) {
+    logger.error(`${filename} is not a json file, reset to ${outputFileName}`);
+  }
+  const iconsStr = JSON.stringify(icons, null, '\t');
+  logger.info(`Create icons json file: ${outputFileName}, path: ${outputFilePath}`);
+  /**
+   * 写入文件
+   */
+  await ensureDir(join(outputDir));
+  await writeFile(outputFilePath, iconsStr, 'utf8');
 }
 
 export const json: OutputPluginImpl<JsonOutputOptions> = (options?: JsonOutputOptions) => {

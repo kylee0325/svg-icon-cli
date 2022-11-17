@@ -4,13 +4,14 @@ import {
   InputPlugin,
   OutputIcon,
   OutputType,
+  OutputTypes,
   OutputPlugin,
   Middleware,
   MiddlewareType,
 } from './types.js';
 import { logger, writeSourceData } from './utils/index.js';
 import { sort, repeat, formatName, formatType } from './middleware/index.js';
-import { json } from './output/index.js';
+import { json, svg, diff, symbol } from './output/index.js';
 
 /**
  * input icons
@@ -36,20 +37,20 @@ const formatIcons = async (
   icons: SourceIcon[],
   middleware: Array<Middleware | MiddlewareType>,
 ): Promise<OutputIcon[]> => {
-  let arr = null;
+  let arr = icons;
   if (middleware && Array.isArray(middleware) && middleware.length > 0) {
     for await (const mw of middleware) {
       if (typeof mw === 'string') {
         const mwt = defaultMiddlewares.find((item) => item.name === mw);
         if (mwt) {
-          arr = await mwt.run(icons);
+          arr = mwt.run(arr);
         }
       } else {
-        arr = await mw.run(icons);
+        arr = mw.run(arr);
       }
     }
   }
-  return arr || icons;
+  return arr;
 };
 
 /**
@@ -63,8 +64,18 @@ const outputIcons = async (icons: OutputIcon[], outputs: Array<OutputType | Outp
   }
 
   if (outputs && Array.isArray(outputs) && outputs.length > 0) {
+    // diff 文件需要在json前面输出
+    const isDiff = (o: OutputType | OutputPlugin) => {
+      const n = typeof o === 'string' ? o : o.name;
+      return n === OutputTypes.DIFF;
+    };
+    outputs = outputs.sort((a, b) => (isDiff(a) ? 0 : 1) - (isDiff(b) ? 0 : 1));
+
     const defaultOutputs: Record<string, OutputPlugin> = {
       json: json(),
+      svg: svg(),
+      diff: diff(),
+      symbol: symbol(),
     };
     for await (const output of outputs) {
       if (typeof output === 'string') {

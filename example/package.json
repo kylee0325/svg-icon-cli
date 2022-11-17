@@ -10,7 +10,6 @@
     "prettier": "prettier --write 'src/components/icons/**/*'"
   },
   "devDependencies": {
-    "svg-icon-cli": "file:../",
     "prettier": "^2.7.1"
   },
   "author": "",

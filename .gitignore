@@ -16,6 +16,9 @@ npm-debug.log
 
 debug*/
 dist*/
+example/output/
+example/src/
+
 .hello-docs
 
 # IDE
