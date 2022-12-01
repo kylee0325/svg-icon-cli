@@ -1,33 +1,24 @@
 import { fs, path } from 'zx';
-import { OutputOptions, OutputIcon, OutputTypes, OutputPluginImpl, IconTypes } from '../types.js';
+import { OutputIcon, OutputTypes, OutputPluginImpl, IconTypes } from '../types.js';
 import { logger, mergeOptions, getPath, replaceColorHelper, withOrigin } from '../utils/index.js';
-import { SvgFormatOptions, StyleFormatOptions, defaultFormatStyle } from './common.js';
+import { SymbolOutputOptions, defaultSymbolOutputOptions, SvgFormatOptions, defaultFormatStyle } from './common.js';
 
 const { join } = path;
 const { ensureDir, writeFile, existsSync } = fs;
-
-export interface SymbolOutputOptions extends OutputOptions {
-  filename?: string;
-  className?: string;
-  style?: string;
-  cssVars?: Record<string, string>;
-  hideCustomVar?: boolean;
-  formatStyle?: (opts: StyleFormatOptions) => string;
-}
-
-export const defaultSymbolOutputOptions: SymbolOutputOptions = {
-  dir: 'src',
-  filename: 'svg-icon',
-  className: 'svg-icon',
-  style: 'display:inline-block;width:1em;height:1em;fill:currentColor;vertical-align:-0.125em;font-size:16px;',
-};
 
 /**
  * 格式化svg内容
  * @param {Object} params
  * @returns {string}
  */
-const formatSvg = ({ content, name, type, cssVars, hideCustomVar }: Omit<SvgFormatOptions, 'svgAttr' | 'tag'>) => {
+const formatSvg = ({
+  content,
+  name,
+  className,
+  type,
+  cssVars,
+  hideCustomVar,
+}: Omit<SvgFormatOptions, 'svgAttr' | 'tag'>) => {
   // 判断是否固定色
   const isStatic = type === IconTypes.STATIC;
   const isMultiple = type === IconTypes.MULTIPLE;
@@ -41,7 +32,7 @@ const formatSvg = ({ content, name, type, cssVars, hideCustomVar }: Omit<SvgForm
     content = content.replace(/fill="(#FFFFFF|white)"/gi, 'white-color');
 
     const colorReplacer = replaceColorHelper({
-      name,
+      name: `${className}-${name}`,
       cssVars,
       isMultiple,
       hideCustomVar,

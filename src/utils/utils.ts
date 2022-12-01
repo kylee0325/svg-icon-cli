@@ -10,6 +10,24 @@ export function getSvgContent(str: string): string {
 }
 
 /**
+ * Convert string to camelCase.
+ * @param {string} str - A string.
+ * @returns {string}
+ */
+export function toCamelCase(str: string): string {
+  return str.replace(/-([a-zA-Z])/g, (_, __, c) => c.toUpperCase());
+}
+
+/**
+ * Convert string to PascalCase.
+ * @param {string} str - A string.
+ * @returns {string}
+ */
+export function toPascalCase(str: string): string {
+  return str.replace(/(^|-)([a-zA-Z])/g, (_, __, c) => c.toUpperCase());
+}
+
+/**
  * 树形数组的遍历格式化(有返回值)
  * @param {T} tree
  * @param {Function} func 每一项执行的格式化函数，需要返回
@@ -42,7 +60,8 @@ export function formatTree<T>(tree: T[], func: (item: T) => T): T[] {
  * @param {string} prefix
  * @returns {string}
  */
-export function addPrefix(name: string, prefix: string): string {
+export function addPrefix(name: string, prefix?: string): string {
+  if (!prefix) return name;
   return `${prefix}${prefix && prefix.endsWith('-') ? '' : '-'}${name}`;
 }
 

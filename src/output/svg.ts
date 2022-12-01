@@ -1,20 +1,10 @@
 import { fs, path } from 'zx';
-import { OutputOptions, OutputIcon, OutputTypes, OutputPluginImpl } from '../types.js';
+import { OutputIcon, OutputTypes, OutputPluginImpl } from '../types.js';
 import { logger, mergeOptions, getPath } from '../utils/index.js';
+import { SvgOutputOptions, defaultSvgOutputOptions } from './common.js';
 
 const { ensureDir, writeFile, emptyDir } = fs;
 const { join } = path;
-
-export interface SvgOutputOptions extends OutputOptions {
-  formatName?: (name: string) => string;
-  formatContent?: (content: string) => string;
-}
-
-export const defaultSvgOutputOptions: SvgOutputOptions = {
-  dir: 'src/svg',
-  formatName: (name: string) => name,
-  formatContent: (content: string) => content,
-};
 
 async function outputIcons(icons: OutputIcon[], options?: SvgOutputOptions): Promise<void> {
   logger.info('svg output options:');

@@ -70,7 +70,7 @@ export type InputPluginImpl<O extends object = object> = (options: O) => InputPl
 
 export interface OutputPlugin {
   name: string;
-  run: (icons: OutputIcon[], options?: OutputOptions) => Promise<void>;
+  run: (icons: OutputIcon[]) => Promise<void>;
 }
 
 export type OutputPluginImpl<O extends object = object> = (options?: O) => OutputPlugin;

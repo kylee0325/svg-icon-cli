@@ -1,18 +1,10 @@
 import { fs, path } from 'zx';
-import { OutputOptions, OutputIcon, OutputTypes, OutputPluginImpl } from '../types.js';
+import { OutputIcon, OutputTypes, OutputPluginImpl } from '../types.js';
 import { logger, mergeOptions, getPath, getDateStr } from '../utils/index.js';
+import { DiffOutputOptions, defaultDiffOutputOptions } from './common.js';
 
 const { ensureDir, readFile, writeFile, existsSync } = fs;
 const { join, parse } = path;
-
-export interface DiffOutputOptions extends OutputOptions {
-  jsonFile?: string;
-}
-
-export const defaultDiffOutputOptions: DiffOutputOptions = {
-  dir: 'src/diff',
-  jsonFile: 'src/icons.json',
-};
 
 async function outputIcons(icons: OutputIcon[], options?: DiffOutputOptions): Promise<void> {
   logger.info('diff output options:');

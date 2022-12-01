@@ -17,7 +17,7 @@ npm-debug.log
 debug*/
 dist*/
 example/output/
-example/src/
+example/src/components
 
 .hello-docs
 

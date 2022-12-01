@@ -8,9 +8,16 @@ const { parse, join } = path;
 
 /**
  * 写入模板文件
- * @param {*} type
+ * @param {string} outputDir
+ * @param {string} file
+ * @param {object} options
  */
-export const writeTemplateFile = async (outputDir: string, file: string): Promise<void> => {
+export const writeTemplateFile = async (
+  outputDir: string,
+  file: string,
+  options?: { format?: Function; log?: boolean },
+): Promise<void> => {
+  const { format, log = true } = options || {};
   outputDir = getPath(outputDir);
   const outputFile = join(outputDir, file);
 
@@ -18,13 +25,17 @@ export const writeTemplateFile = async (outputDir: string, file: string): Promis
     logger.errorExit(`操作失败，文件${file}已存在`);
   }
 
-  const templateFile = await readFile(getBasePath(`/templates/${file}`), 'utf8');
+  let fileContent = await readFile(getBasePath(`/templates/${file}`), 'utf8');
+
+  if (format && typeof format === 'function') {
+    fileContent = format(fileContent);
+  }
 
   await ensureDir(outputDir);
-  await writeFile(outputFile, templateFile, function (err: any) {
+  await writeFile(outputFile, fileContent, function (err: any) {
     if (err) {
       logger.errorExit(`创建文件失败：${JSON.stringify(err)}`);
-    } else {
+    } else if (log) {
       logger.success('创建文件成功！');
     }
   });

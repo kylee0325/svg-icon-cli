@@ -38,12 +38,12 @@ export default defineIconConfig({
   ],
   middleware: ['formatName', 'repeat', 'sort', 'formatType'],
   output: [
-    'json',
-    'svg',
-    'diff',
-    output.json({ dir: 'output', filename: 'icon.js' }),
+    // 'json',
+    // 'svg',
+    // 'diff',
+    output.json({ dir: 'src/components', filename: 'icon.js' }),
     output.svg({
-      dir: 'output/svg',
+      dir: 'src/components/svg',
       formatName(name) {
         return name.replace(/-([a-z])/g, (s) => s.replace(/-/g, '').toUpperCase());
       },
@@ -51,16 +51,32 @@ export default defineIconConfig({
         return content.replace(/<svg/g, '<svg focusable="false"');
       },
     }),
-    output.diff({ dir: 'output/diff', jsonFile: 'src/icons.js' }),
-    'symbol',
+    output.diff({ dir: 'src/components/diff', jsonFile: 'src/icons.js' }),
+    // 'symbol',
     output.symbol({
-      dir: 'output/svg-icon',
+      dir: 'src/components/svg-icon',
       filename: 'index',
       className: 'fly-icon',
       style: 'width: 1em;',
       formatStyle(o) {
-        console.log('o', o);
+        // console.log('o', o);
         return o.origin;
+      },
+    }),
+    // 'component',
+    output.component({
+      dir: 'src/components/icons',
+      className: 'fly-icon',
+      tag: 'i',
+      cssInjectedByJs: true,
+      svgAttr: '',
+      formatSvg(o) {
+        // console.log('o', o.parse && o.parse(o.origin));
+        return o.origin;
+      },
+      cssVars: {
+        '#B4B8BF': '--main-color',
+        '#222529': '--second-color',
       },
     }),
   ],

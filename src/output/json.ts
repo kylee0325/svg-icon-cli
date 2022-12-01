@@ -1,18 +1,10 @@
 import { fs, path } from 'zx';
-import { OutputOptions, OutputIcon, OutputTypes, OutputPluginImpl } from '../types.js';
+import { OutputIcon, OutputTypes, OutputPluginImpl } from '../types.js';
 import { logger, mergeOptions, getPath } from '../utils/index.js';
+import { JsonOutputOptions, defaultJsonOutputOptions } from './common.js';
 
 const { ensureDir, writeFile } = fs;
 const { join, extname, parse } = path;
-
-export interface JsonOutputOptions extends OutputOptions {
-  filename?: string;
-}
-
-export const defaultJsonOutputOptions: JsonOutputOptions = {
-  dir: 'src',
-  filename: 'icons.json',
-};
 
 async function outputIcons(icons: OutputIcon[], options?: JsonOutputOptions): Promise<void> {
   logger.info('json output options:');

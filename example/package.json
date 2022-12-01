@@ -4,13 +4,24 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "init": "svg-icon-cli init",
-    "build": "svg-icon-cli build --debug",
+    "build:icons": "svg-icon-cli build --debug",
     "template": "svg-icon-cli template",
-    "prettier": "prettier --write 'src/components/icons/**/*'"
+    "prettier": "prettier --write 'src/components/icons/**/*'",
+    "clear": "rm -rf ./src ./output ./debug"
+  },
+  "dependencies": {
+    "vue": "^3.2.37"
   },
   "devDependencies": {
-    "prettier": "^2.7.1"
+    "@vitejs/plugin-vue": "^3.0.3",
+    "prettier": "^2.7.1",
+    "typescript": "^4.6.4",
+    "vite": "^3.0.7",
+    "vue-tsc": "^0.39.5"
   },
   "author": "",
   "license": "MIT"
