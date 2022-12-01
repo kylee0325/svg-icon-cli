@@ -11,7 +11,7 @@ import {
 } from './types.js';
 import { logger, writeSourceData } from './utils/index.js';
 import { sort, repeat, formatName, formatType } from './middleware/index.js';
-import { json, svg, diff, symbol, component } from './output/index.js';
+import { json, svg, diff, symbol, component, component_bg, component_img } from './output/index.js';
 
 /**
  * input icons
@@ -77,6 +77,8 @@ const outputIcons = async (icons: OutputIcon[], outputs: Array<OutputType | Outp
       diff: diff(),
       symbol: symbol(),
       component: component(),
+      component_bg: component_bg(),
+      component_img: component_img(),
     };
     for await (const output of outputs) {
       if (typeof output === 'string') {

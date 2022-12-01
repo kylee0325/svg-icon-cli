@@ -1,26 +1,46 @@
 <template>
   <div class="icons-preview">
-    <div class="search">
-      <input v-model="keyword" placeholder="请输入关键字搜索" />点击图标进行复制
-      <span v-if="copyText">{{ copyText }}</span>
+    <div class="title" title="点击展开收起" @click="handleCollapse(0)">symbol图标</div>
+    <div class="wrapper" :class="{ show: collapsedArr.includes(0) }">
+      <ul>
+        <li
+          class="item"
+          :class="{ active: current === iconComponentName }"
+          v-for="iconComponentName in iconNames2"
+          :key="iconComponentName"
+        >
+          <svg-icon class="svg-icon" :name="iconComponentName" />
+          <div class="item-name">{{ iconComponentName }}</div>
+        </li>
+      </ul>
     </div>
-    <ul class="wrapper">
-      <li
-        class="item"
-        v-for="iconComponentName in icons"
-        :key="iconComponentName"
-        :title="iconComponentName"
-        @click="copyName(iconComponentName)"
-      >
-        <component
-          :is="iconComponentName"
-          :style="{ fontSize: '36px', color: '#2254f4' }"
-          color="#2254f4"
-          size="36px"
-        />
-        <div class="item-name">{{ iconComponentName }}</div>
-      </li>
-    </ul>
+    <div class="title" title="点击展开收起" @click="handleCollapse(1)">component图标</div>
+    <div class="wrapper" :class="{ show: collapsedArr.includes(1) }">
+      <div class="search">
+        <input v-model="keyword" placeholder="请输入关键字搜索" />点击图标进行复制
+        <span v-if="copyText">{{ copyText }}</span>
+      </div>
+      <ul>
+        <li
+          class="item"
+          :class="{ active: current === iconComponentName }"
+          v-for="iconComponentName in icons"
+          :key="iconComponentName"
+          :title="iconComponentName"
+          @click="copyName(iconComponentName)"
+          @mouseenter="handleHover(iconComponentName, true)"
+          @mouseleave="handleHover(iconComponentName)"
+        >
+          <component
+            :is="iconComponentName"
+            :style="{ fontSize: '36px' }"
+            :color="current === iconComponentName ? '#2254f4' : '#486491'"
+            size="36px"
+          />
+          <div class="item-name">{{ iconComponentName }}</div>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 <script>
@@ -34,8 +54,11 @@ export default {
   data() {
     return {
       iconNames: Object.keys(icons),
+      iconNames2: Object.values(icons).map((it) => it.name),
       keyword: '',
       copyText: '',
+      current: '',
+      collapsedArr: [0, 1],
     };
   },
   computed: {
@@ -44,6 +67,20 @@ export default {
     },
   },
   methods: {
+    handleCollapse(n) {
+      if (this.collapsedArr.includes(n)) {
+        this.collapsedArr = this.collapsedArr.filter((it) => it !== n);
+      } else {
+        this.collapsedArr = [...this.collapsedArr, n];
+      }
+    },
+    handleHover(name, isHover) {
+      if (isHover) {
+        this.current = name;
+      } else {
+        this.current = '';
+      }
+    },
     copyName(name) {
       const input = document.createElement('input');
       input.setAttribute('readonly', 'readonly');
@@ -70,9 +107,17 @@ export default {
   text-align: left;
 }
 
+.title {
+  padding: 20px;
+  font-size: 32px;
+  border-bottom: 1px solid #f1f2f4;
+  cursor: pointer;
+}
+
 .icons-preview .search {
   display: flex;
   align-items: center;
+  padding: 16px 0;
 }
 
 .icons-preview .search input {
@@ -114,11 +159,22 @@ export default {
 }
 
 .icons-preview .wrapper {
+  margin: 16px 0;
+  margin: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.icons-preview .wrapper.show {
+  height: auto;
+}
+
+.icons-preview .wrapper ul {
   display: flex;
   flex-flow: wrap;
-  padding: 15px 0;
   margin: 0;
   list-style: none;
+  padding: 20px;
 }
 
 .icons-preview .item {
@@ -128,21 +184,39 @@ export default {
   justify-content: center;
   width: 120px;
   height: 80px;
-  padding: 20px;
+  padding: 8px;
   font-size: 24px;
   color: #486491;
   border-radius: 6px;
   cursor: pointer;
   transition: background-color, transform 0.2s;
+  --main-color: yellow;
+  --second-color: black;
+}
+
+.icons-preview .item.active {
+  --main-color: #2254f4;
+  --second-color: red;
 }
 
 .icons-preview .item-name {
   margin-top: 12px;
   font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .icons-preview .item:hover {
   transform: scale(1.2);
   background-color: #e7ecf3;
+  --main-color: #2254f4;
+  --second-color: red;
+  color: #2254f4;
+}
+
+.item .svg-icon {
+  flex-shrink: 0;
+  font-size: 36px;
 }
 </style>

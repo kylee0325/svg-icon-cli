@@ -127,6 +127,13 @@ export interface BaseComponentOutputOptions extends OutputOptions {
 
 export type ComponentOutputOptions = Omit<BaseComponentOutputOptions, 'defaultColor' | 'defaultSize'>;
 
+export type ComponentBgOutputOptions = Omit<BaseComponentOutputOptions, 'svgAttr' | 'cssVars' | 'hideCustomVar'>;
+
+export type ComponentImgOutputOptions = Omit<
+  BaseComponentOutputOptions,
+  'tag' | 'svgAttr' | 'cssVars' | 'hideCustomVar'
+>;
+
 export const defaultComponentOutputOptions: ComponentOutputOptions = {
   dir: CONFIG.ROOT,
   dirname: CONFIG.COMPONENT_DIR,

@@ -5,5 +5,3 @@ import Preview from './preview.vue';
 <template>
   <Preview />
 </template>
-
-<style scoped></style>

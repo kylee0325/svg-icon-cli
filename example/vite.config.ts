@@ -1,5 +1,5 @@
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -7,9 +7,12 @@ export default defineConfig({
   resolve: {
     alias: [
       {
-        find: "vue",
-        replacement: "vue/dist/vue.esm-bundler.js",
+        find: 'vue',
+        replacement: 'vue/dist/vue.esm-bundler.js',
       },
     ],
+  },
+  server: {
+    open: true,
   },
 });

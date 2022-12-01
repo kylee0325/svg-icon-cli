@@ -52,7 +52,6 @@ export const OutputTypes = {
   COMPONENT: 'component',
   COMPONENT_IMG: 'component_img',
   COMPONENT_BG: 'component_bg',
-  COMPONENT_MIN: 'component_min',
 } as const;
 
 export type OutputType = typeof OutputTypes[keyof typeof OutputTypes];

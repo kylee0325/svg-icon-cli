@@ -1,4 +1,4 @@
-import { fs, path } from 'zx';
+import { fs, path, $ } from 'zx';
 import { OutputIcon, OutputTypes, OutputPluginImpl, IconTypes } from '../types.js';
 import { logger, mergeOptions, getPath, replaceColorHelper, withOrigin } from '../utils/index.js';
 import { SymbolOutputOptions, defaultSymbolOutputOptions, SvgFormatOptions, defaultFormatStyle } from './common.js';
@@ -28,7 +28,7 @@ const formatSvg = ({
   // 固定色跳过颜色替换的逻辑
   if (!isStatic) {
     // 把白色跟none先替换成临时值
-    content = content.replace(/fill="none"/gi, 'fill-none');
+    content = content.replace(/fill="none" /gi, '');
     content = content.replace(/fill="(#FFFFFF|white)"/gi, 'white-color');
 
     const colorReplacer = replaceColorHelper({
@@ -45,11 +45,12 @@ const formatSvg = ({
 
     // 把白色跟none替换回来
     content = content.replace(/white-color/gi, 'fill="white"');
-    content = content.replace(/fill-none/gi, 'fill="none"');
+    // content = content.replace(/fill-none/gi, 'fill="none"');
   }
 
   // 去除无用属性
-  content = content.replace(/(width|height|fill-rule|clip-rule)=".+?" /gi, '');
+  content = content.replace(/(width|height)=".+?" /gi, '');
+  content = content.replace(/xmlns=".+?"/gi, '');
 
   // 替换成symbol
   content = content.replace(/<svg/gi, `<symbol id="${name}"`);
@@ -130,6 +131,10 @@ async function outputIcons(icons: OutputIcon[], options?: SymbolOutputOptions): 
     await writeFile(iconFile, formatComponent({ className: className! }), 'utf8');
 
     logger.success(`Create file ${filename}.vue success, path: ${fileDirPath}/${filename}.vue`);
+
+    try {
+      await $`prettier --write '${fileDirPath}/${filename}.vue'`;
+    } catch (error) {}
   });
 }
 

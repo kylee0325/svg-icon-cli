@@ -3,6 +3,11 @@ import { defineIconConfig, input, middleware, output } from '../dist/index.js';
 const { iconfont, figma, svg, json } = input;
 const { repeat, sort } = middleware;
 
+const cssVars = {
+  '#B4B8BF': '--main-color',
+  '#222529': '--second-color',
+};
+
 export default defineIconConfig({
   input: [
     // figma({
@@ -57,7 +62,7 @@ export default defineIconConfig({
       dir: 'src/components/svg-icon',
       filename: 'index',
       className: 'fly-icon',
-      style: 'width: 1em;',
+      cssVars,
       formatStyle(o) {
         // console.log('o', o);
         return o.origin;
@@ -74,10 +79,18 @@ export default defineIconConfig({
         // console.log('o', o.parse && o.parse(o.origin));
         return o.origin;
       },
-      cssVars: {
-        '#B4B8BF': '--main-color',
-        '#222529': '--second-color',
-      },
+      cssVars,
+    }),
+    output.component_bg({
+      dir: 'src/components/bg-icons',
+      className: 'bg-icon',
+      tag: 'span',
+      cssInjectedByJs: true,
+    }),
+    output.component_img({
+      dir: 'src/components/img-icons',
+      className: 'img-icon',
+      cssInjectedByJs: true,
     }),
   ],
 });
