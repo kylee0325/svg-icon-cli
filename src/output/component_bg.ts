@@ -138,7 +138,7 @@ async function outputIcons(icons: OutputIcon[], options?: ComponentBgOutputOptio
     dirname,
     filename,
     className,
-    tag,
+    tag = 'span',
     prefix,
     style,
     cssInjectedByJs = false,
@@ -285,7 +285,9 @@ async function outputIcons(icons: OutputIcon[], options?: ComponentBgOutputOptio
   logger.success(`Create icon components success, total: ${icons.length}`);
 
   try {
-    await $`prettier --write '${fileDirPath}/**/*'`;
+    if (!$.env.TEST) {
+      await $`prettier --write '${fileDirPath}/**/*'`;
+    }
   } catch (error) {}
 }
 

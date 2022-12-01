@@ -210,7 +210,9 @@ async function outputIcons(icons: OutputIcon[], options?: ComponentOutputOptions
   logger.success(`Create icon components success, total: ${icons.length}`);
 
   try {
-    await $`prettier --write '${fileDirPath}/**/*'`;
+    if (!$.env.TEST) {
+      await $`prettier --write '${fileDirPath}/**/*'`;
+    }
   } catch (error) {}
 }
 

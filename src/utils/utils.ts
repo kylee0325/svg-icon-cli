@@ -10,15 +10,6 @@ export function getSvgContent(str: string): string {
 }
 
 /**
- * Convert string to camelCase.
- * @param {string} str - A string.
- * @returns {string}
- */
-export function toCamelCase(str: string): string {
-  return str.replace(/-([a-zA-Z])/g, (_, __, c) => c.toUpperCase());
-}
-
-/**
  * Convert string to PascalCase.
  * @param {string} str - A string.
  * @returns {string}

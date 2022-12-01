@@ -133,7 +133,9 @@ async function outputIcons(icons: OutputIcon[], options?: SymbolOutputOptions): 
     logger.success(`Create file ${filename}.vue success, path: ${fileDirPath}/${filename}.vue`);
 
     try {
-      await $`prettier --write '${fileDirPath}/${filename}.vue'`;
+      if (!$.env.TEST) {
+        await $`prettier --write '${fileDirPath}/${filename}.vue'`;
+      }
     } catch (error) {}
   });
 }
